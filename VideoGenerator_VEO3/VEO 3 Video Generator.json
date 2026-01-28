@@ -1,0 +1,590 @@
+{
+  "name": "VEO 3 Video Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -16
+      ],
+      "id": "57fc7636-75f8-41fb-a916-a3d9c7b4aeb9",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        240
+      ],
+      "id": "e73a543a-5d25-4800-bee5-3109187d6fbe",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "QAVUyaodwuyHiu74",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        240
+      ],
+      "id": "fd7df6bf-faff-463c-945a-54eedae26f5c",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{ \n  \"caption\": \"\", \n  \"idea\": \"\", \n  \"environment\": \"\",\n  \"status\": \"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        224
+      ],
+      "id": "f3d8fb45-c6b2-4049-b109-f822727984ff",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        224
+      ],
+      "id": "9cb06e16-1c09-430a-abed-508c0c4ed1c3",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "QAVUyaodwuyHiu74",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        224
+      ],
+      "id": "17cd62d1-881b-4cea-8f85-5d3d85fdbec0",
+      "name": "Think1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create a prompt for the Veo3 video based on the following information:Idea: {{ $json.output.idea }}\nEnvironment: {{ $json.output.environment }}",
+        "options": {
+          "systemMessage": "=** System Message **\n\nYou are a professional cinematic prompt generator for AI video tools. Your task is to convert a short-form video idea and its environment description (inspired by biblical or ancient-world themes) into a highly detailed, camera-aware, emotionally rich prompt suitable for generating a cinematic AI video using Veo3.You must understand the emotional tone, visual aesthetics, and storytelling style of short-form TikTok videos that imitate biblical scenes with modern pacing and framing.\n\n** Veo3 Prompt Structure Guidelines **\n\nEach prompt should be natural, cinematic, and visually immersive, including:\n- Scene description – Describe the overall environment clearly (terrain, buildings, light, movement).- Character focus \n– If the idea involves a person, include their position, outfit style (biblical era), mood/expression, and framing (e.g., close-up, wide shot).\n- Camera movement – Always include one cinematic camera motion (e.g., slow push-in, handheld tracking, drone pan, orbit, dolly backward).\n- Time of day & lighting – Set the mood with light (e.g., golden hour, harsh daylight, candlelit interior).\n- Atmosphere & texture – Mention dust, wind, fabric movement, shadows, reflections, or imperfections in the scene to increase realism.\n- Style & quality – Include cinematic tone, analog warmth, slightly soft vintage film look, GoPro-like closeness if appropriate.\n\n** Input **\n\n- You will receive two fields: idea, environment- Return only the complete and detailed Veo3 prompt, no additional text.\n\n** Example Output **\n\nA biblical man stands in front of a half-built wooden ark, gesturing passionately as he explains something to the camera. The camera follows him handheld-style, moving slightly as he paces. In the background, groups of villagers are laughing and pointing. The sky is overcast with low clouds, and goats wander through muddy terrain. The man wears worn, ancient robes, his feet muddy, his tone frustrated but hopeful.\n\nThe scene has a documentary-style realism, with soft golden highlights breaking through cloud gaps. Light wind moves fabric and rustles dry straw around the ark. Shot in cinematic 24fps with natural tones and slight vintage softness."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        176,
+        -16
+      ],
+      "id": "b4d41246-f28a-48e6-9d02-179c91a36fb3",
+      "name": "Create Video Prompt"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Give me an idea to create the content on a  biblical characters speaking to a camera and making a vlog",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=** Purpose **\nYou generate viral short-form video ideas inspired by biblical characters or scenes, styled like modern TikTok vlogs. These should feel personal, emotional, and often humorous.\n\n** Think Tool Prompt (used before generation) **\n“How can I take a biblical moment or character and turn it into a relatable, viral, or funny TikTok-style video idea that feels natural, emotional, or modern?” \n\n** Output Requirements **\nYour response must include:- caption – Short, poetic or funny, TikTok-style. Include emojis and 3–5 hashtags (e.g., #biblevlog #foryou #holycomedy #ancientvibes).- idea – 1–2 sentence summary of the action, story, or twist in the video.- environment – Describe what the set looks like: light, textures, mood, setting. Think “GoPro meets ancient Jerusalem.” - status – Must be \"to create\", without quotation marks\n\n** JSON Output Parser **\nEvery output must strictly follow this format:{ \"caption\": \"\", \"idea\": \"\", \"environment\": \"\", \"status\": \"\"}\n\n** Sample Outputs **\nExample 1{ \"caption\": \"When Jesus gives you the silent treatment 🕊️😶 #jesusvlog #holycomedy\", \"idea\": \"Jesus calmly stares at the camera while the disciple keeps asking, 'Are we lost?' – awkward silence builds up.\", \"environment\": \"Desert trail, golden hour light, dry bushes around, warm rocky textures and wind softly blowing.\", \"status\": \"ready for production\"}\n\nExample 2{ \"caption\": \"POV: You just met Mary Magdalene and she’s not what you expected 😳✨ #biblevlog #foryou\", \"idea\": \"A modern-style introduction of Mary Magdalene where she breaks the fourth wall with sarcasm and confidence.\", \"environment\": \"Dusty stone home with narrow light beams, clay walls, fabric drapes blowing slightly in the breeze.\", \"status\": \"ready for production\"}\n\nExample 3{ \"caption\": \"Me trying to explain the flood before it happened 🌧️🐘 #noahvibes #bibletok\", \"idea\": \"Noah explains why he’s building the ark, while others laugh in the background — like a vlog rant.\", \"environment\": \"Half-built wooden structure, cloudy sky, goats wandering around, mud everywhere, distant laughter.\",\n\"status\": \"concept only\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -16
+      ],
+      "id": "181712e7-97fe-4745-85b0-91bc390007ee",
+      "name": "Create an Idea Ai agent"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc",
+          "mode": "list",
+          "cachedResultName": "Veo3 Video Ideas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Idea": "={{ $('Create an Idea Ai agent').item.json.output.idea }}",
+            "Captions": "={{ $('Create an Idea Ai agent').item.json.output.caption }}",
+            "Status": "={{ $('Create an Idea Ai agent').item.json.output.status }}",
+            "Environment": "={{ $('Create an Idea Ai agent').item.json.output.environment }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Idea",
+              "displayName": "Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Captions",
+              "displayName": "Captions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Environment",
+              "displayName": "Environment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        496,
+        -16
+      ],
+      "id": "e320773a-2e5f-4ca9-b008-6ce2a9057d7a",
+      "name": "Save Content Notes",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "U8LnOrvaTnv9ogwr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Input: Video Topics",
+        "height": 592,
+        "width": 832,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -224
+      ],
+      "id": "aa1b80c7-274c-4a4a-ac69-f5883efcecf5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Create a Video",
+        "height": 640,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -240
+      ],
+      "id": "442084a1-2ad7-4bea-93f7-e09904fdbef4",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/veo3",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={ \"prompt\": \"{{ $('Create Video Prompt').item.json.output }}\" }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        -160
+      ],
+      "id": "36bff017-771f-4a84-813a-66fb543022e2",
+      "name": "Create video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "5qeorEq6XRGkIcAC",
+          "name": "Veo3 Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        32
+      ],
+      "id": "0067cdea-0f85-41c4-92c8-01c9db7c3854",
+      "name": "Wait",
+      "webhookId": "a6822142-1267-49ea-8e7f-958c767cbb87"
+    },
+    {
+      "parameters": {
+        "url": "FDFGDF",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        240
+      ],
+      "id": "945b41fa-85b3-4327-a3c3-8470ce716a3e",
+      "name": "Get Video"
+    },
+    {
+      "parameters": {
+        "content": "## Save the Video",
+        "height": 288,
+        "width": 272,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -160
+      ],
+      "id": "edff5605-6ac7-4376-af8f-c94932945b48",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc",
+          "mode": "list",
+          "cachedResultName": "Veo3 Video Ideas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SwjDVp3JLuPfl9Eny9uln_9cq8q9cXBtVlaLLA8zNPc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Idea",
+              "displayName": "Idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Captions",
+              "displayName": "Captions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Environment",
+              "displayName": "Environment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        960,
+        -80
+      ],
+      "id": "ce56e02b-885b-4026-92a5-0439e9b314f6",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "U8LnOrvaTnv9ogwr",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Create an Idea Ai agent": [
+      {
+        "json": {
+          "output": {
+            "caption": "Cain's not-so-friendly sibling rivalry vlog 😅🌾 #biblevlog #siblingdrama #ancientconfessions",
+            "idea": "Cain talks to the camera about feeling overshadowed by Abel, blending modern-day vlog confessions with ancient sibling rivalry.",
+            "environment": "Rustic farmland at sunset with golden light, sparse trees, dusty ground, and a simple wooden fence as background, evoking a raw and intimate vibe.",
+            "status": "to create"
+          }
+        }
+      }
+    ],
+    "Create Video Prompt": [
+      {
+        "json": {
+          "output": "A young biblical man, Cain, stands in a rustic farmland at sunset, speaking directly to the camera in a modern vlog-style confession. He wears simple, earth-toned linen robes, slightly worn, his expression a mix of frustration and vulnerability as he conveys feeling overshadowed by his brother Abel. The background features a sparse line of gnarled trees and a simple wooden fence, dust gently rising from the dry ground around his feet. Warm, golden-hour sunlight bathes the scene, casting long shadows and highlighting the dust motes in the air, creating an intimate and raw atmosphere. The camera slowly pushes in from a medium shot to a close-up, capturing the subtle emotions flickering across Cain’s face. A light breeze rustles the fabric of his robe and the dry leaves, adding texture and life to the moment. The visual style is cinematic with analog warmth and a slightly soft vintage film look, blending the ancient setting with the immediacy of modern storytelling."
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create an Idea Ai agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create an Idea Ai agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Create an Idea Ai agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Create an Idea Ai agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Video Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Create Video Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an Idea Ai agent": {
+      "main": [
+        [
+          {
+            "node": "Create Video Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Video Prompt": {
+      "main": [
+        [
+          {
+            "node": "Save Content Notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Content Notes": {
+      "main": [
+        [
+          {
+            "node": "Create video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create video": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e78f0db8-2405-4b21-b7ba-d61c9ad55fe7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "80506d3448078bcf0bb2e0bcf69531cdc076409df54bd01c6e846b8a70b9afaa"
+  },
+  "id": "1zDwiJGY2AfgXO3P",
+  "tags": []
+}
