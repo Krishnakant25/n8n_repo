@@ -1,5 +1,5 @@
 {
-  "name": "VEO 3 Video Generator",
+  "name": "VEO 3 Video Generator_1",
   "nodes": [
     {
       "parameters": {
@@ -15,7 +15,7 @@
         -320,
         -16
       ],
-      "id": "57fc7636-75f8-41fb-a916-a3d9c7b4aeb9",
+      "id": "453b7695-9d53-4336-80ca-786e48f28d14",
       "name": "Schedule Trigger"
     },
     {
@@ -33,12 +33,12 @@
         -256,
         240
       ],
-      "id": "e73a543a-5d25-4800-bee5-3109187d6fbe",
+      "id": "2bfe69e3-772c-453a-accf-40f4d0faa911",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "QAVUyaodwuyHiu74",
-          "name": "OpenAi account 2"
+          "id": "AAsK72MT8ImszxZf",
+          "name": "GIT"
         }
       }
     },
@@ -50,7 +50,7 @@
         -96,
         240
       ],
-      "id": "fd7df6bf-faff-463c-945a-54eedae26f5c",
+      "id": "e72c5bf9-0dfc-458e-b814-67da69dd68de",
       "name": "Think"
     },
     {
@@ -63,7 +63,7 @@
         48,
         224
       ],
-      "id": "f3d8fb45-c6b2-4049-b109-f822727984ff",
+      "id": "0827443e-97e6-4c03-8ad7-1085f8bfa93a",
       "name": "Structured Output Parser"
     },
     {
@@ -81,12 +81,12 @@
         208,
         224
       ],
-      "id": "9cb06e16-1c09-430a-abed-508c0c4ed1c3",
+      "id": "bd02f70d-2dd8-4aff-b701-4f85c2a7623f",
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "QAVUyaodwuyHiu74",
-          "name": "OpenAi account 2"
+          "id": "AAsK72MT8ImszxZf",
+          "name": "GIT"
         }
       }
     },
@@ -98,7 +98,7 @@
         352,
         224
       ],
-      "id": "17cd62d1-881b-4cea-8f85-5d3d85fdbec0",
+      "id": "012e6b3e-1d9f-48bf-8294-c2ec5c8ef1aa",
       "name": "Think1"
     },
     {
@@ -115,7 +115,7 @@
         176,
         -16
       ],
-      "id": "b4d41246-f28a-48e6-9d02-179c91a36fb3",
+      "id": "bee2a3f2-8a98-4ef9-ab62-e78f4c593c89",
       "name": "Create Video Prompt"
     },
     {
@@ -133,7 +133,7 @@
         -144,
         -16
       ],
-      "id": "181712e7-97fe-4745-85b0-91bc390007ee",
+      "id": "44484b1e-c09a-4c8d-af2b-f7b8e650be53",
       "name": "Create an Idea Ai agent"
     },
     {
@@ -220,12 +220,12 @@
         496,
         -16
       ],
-      "id": "e320773a-2e5f-4ca9-b008-6ce2a9057d7a",
+      "id": "7b98c60c-1c33-4e3b-bc5a-a541db18bd6d",
       "name": "Save Content Notes",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "U8LnOrvaTnv9ogwr",
-          "name": "Google Sheets account"
+          "id": "ucDuUuzv7TfyCtLU",
+          "name": "GIT"
         }
       }
     },
@@ -242,7 +242,7 @@
         -352,
         -224
       ],
-      "id": "aa1b80c7-274c-4a4a-ac69-f5883efcecf5",
+      "id": "0e0a33b6-be4f-4b41-83e4-e92286b77d94",
       "name": "Sticky Note"
     },
     {
@@ -257,7 +257,7 @@
         608,
         -240
       ],
-      "id": "442084a1-2ad7-4bea-93f7-e09904fdbef4",
+      "id": "3e864314-850b-4595-b9c0-11bb96b81e8e",
       "name": "Sticky Note1"
     },
     {
@@ -278,7 +278,7 @@
         672,
         -160
       ],
-      "id": "36bff017-771f-4a84-813a-66fb543022e2",
+      "id": "1d312e43-c272-4a5c-b83b-5ee5b0be6872",
       "name": "Create video",
       "credentials": {
         "httpHeaderAuth": {
@@ -298,9 +298,9 @@
         672,
         32
       ],
-      "id": "0067cdea-0f85-41c4-92c8-01c9db7c3854",
+      "id": "5b19d412-d0c1-45f6-8d4e-a6fb6a7b4693",
       "name": "Wait",
-      "webhookId": "a6822142-1267-49ea-8e7f-958c767cbb87"
+      "webhookId": "96c520d4-c787-458c-9ff7-73baf468c5c9"
     },
     {
       "parameters": {
@@ -313,7 +313,7 @@
         672,
         240
       ],
-      "id": "945b41fa-85b3-4327-a3c3-8470ce716a3e",
+      "id": "9b6cae16-7be0-498f-adf0-4061bd98a139",
       "name": "Get Video"
     },
     {
@@ -329,7 +329,7 @@
         896,
         -160
       ],
-      "id": "edff5605-6ac7-4376-af8f-c94932945b48",
+      "id": "1efcd129-c19c-461e-80b8-845382c9d474",
       "name": "Sticky Note2"
     },
     {
@@ -411,37 +411,17 @@
         960,
         -80
       ],
-      "id": "ce56e02b-885b-4026-92a5-0439e9b314f6",
+      "id": "61f9a6d2-10eb-4ccf-b89b-e621a044aba9",
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "U8LnOrvaTnv9ogwr",
-          "name": "Google Sheets account"
+          "id": "ucDuUuzv7TfyCtLU",
+          "name": "GIT"
         }
       }
     }
   ],
-  "pinData": {
-    "Create an Idea Ai agent": [
-      {
-        "json": {
-          "output": {
-            "caption": "Cain's not-so-friendly sibling rivalry vlog 😅🌾 #biblevlog #siblingdrama #ancientconfessions",
-            "idea": "Cain talks to the camera about feeling overshadowed by Abel, blending modern-day vlog confessions with ancient sibling rivalry.",
-            "environment": "Rustic farmland at sunset with golden light, sparse trees, dusty ground, and a simple wooden fence as background, evoking a raw and intimate vibe.",
-            "status": "to create"
-          }
-        }
-      }
-    ],
-    "Create Video Prompt": [
-      {
-        "json": {
-          "output": "A young biblical man, Cain, stands in a rustic farmland at sunset, speaking directly to the camera in a modern vlog-style confession. He wears simple, earth-toned linen robes, slightly worn, his expression a mix of frustration and vulnerability as he conveys feeling overshadowed by his brother Abel. The background features a sparse line of gnarled trees and a simple wooden fence, dust gently rising from the dry ground around his feet. Warm, golden-hour sunlight bathes the scene, casting long shadows and highlighting the dust motes in the air, creating an intimate and raw atmosphere. The camera slowly pushes in from a medium shot to a close-up, capturing the subtle emotions flickering across Cain’s face. A light breeze rustles the fabric of his robe and the dry leaves, adding texture and life to the moment. The visual style is cinematic with analog warmth and a slightly soft vintage film look, blending the ancient setting with the immediacy of modern storytelling."
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -580,11 +560,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e78f0db8-2405-4b21-b7ba-d61c9ad55fe7",
+  "versionId": "6407e563-6ce6-464d-8d40-8d5577c2d382",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "80506d3448078bcf0bb2e0bcf69531cdc076409df54bd01c6e846b8a70b9afaa"
   },
-  "id": "1zDwiJGY2AfgXO3P",
+  "id": "s5uQlZ7dO3uhtLFO",
   "tags": []
 }
