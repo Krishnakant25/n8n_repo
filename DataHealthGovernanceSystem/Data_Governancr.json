@@ -153,8 +153,8 @@
       "name": "Groq-Kimi-K2",
       "credentials": {
         "groqApi": {
-          "id": "MO6A9nZijHu6bYuG",
-          "name": "Groq account 2"
+          "id": "ZGeLSVxiQsCx3vUk",
+          "name": "Groq account 3"
         }
       }
     },
@@ -172,8 +172,8 @@
       "name": "Gemini-2.5-Flash",
       "credentials": {
         "googlePalmApi": {
-          "id": "uIxJ2FCooS9mxcV0",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "GeYHEcKDgFBTW3pW",
+          "name": "GIT"
         }
       }
     },
@@ -191,8 +191,8 @@
       "name": "Gemini-2.5-Flash1",
       "credentials": {
         "googlePalmApi": {
-          "id": "uIxJ2FCooS9mxcV0",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "GeYHEcKDgFBTW3pW",
+          "name": "GIT"
         }
       }
     },
@@ -213,8 +213,8 @@
       "name": "Create Google Docs",
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "9juZ7OYzrm1ncusZ",
-          "name": "Google Docs account"
+          "id": "XxXG8sRIqUNs0Anf",
+          "name": "GIT"
         }
       }
     },
@@ -246,8 +246,8 @@
       "name": "Update Access",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "doHCYgH0DgILi9Xx",
-          "name": "Google Drive account"
+          "id": "sLm0vCDOMG99ETtJ",
+          "name": "GIT"
         }
       }
     },
@@ -290,8 +290,8 @@
       "name": "Update Google Docs",
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "9juZ7OYzrm1ncusZ",
-          "name": "Google Docs account"
+          "id": "XxXG8sRIqUNs0Anf",
+          "name": "GIT"
         }
       }
     },
@@ -355,8 +355,8 @@
       "name": "Postgres Schema",
       "credentials": {
         "postgres": {
-          "id": "6A8eGNaHInssGIW7",
-          "name": "Data"
+          "id": "VmbeEp38jDEhYD4q",
+          "name": "git"
         }
       }
     },
@@ -421,8 +421,8 @@
       "alwaysOutputData": true,
       "credentials": {
         "postgres": {
-          "id": "6A8eGNaHInssGIW7",
-          "name": "Data"
+          "id": "VmbeEp38jDEhYD4q",
+          "name": "git"
         }
       },
       "onError": "continueRegularOutput"
@@ -453,8 +453,8 @@
       "webhookId": "2597c8db-314e-4257-a6a1-9cbf07778c23",
       "credentials": {
         "gmailOAuth2": {
-          "id": "BduuK2xE34DeB5CA",
-          "name": "Gmail account 2"
+          "id": "AH8hZGm0rsEMN0k4",
+          "name": "GIT"
         }
       }
     },
@@ -568,8 +568,8 @@
       "webhookId": "ad6f9ffa-d2f7-434b-b330-01afe3d66b4c",
       "credentials": {
         "gmailOAuth2": {
-          "id": "BduuK2xE34DeB5CA",
-          "name": "Gmail account 2"
+          "id": "AH8hZGm0rsEMN0k4",
+          "name": "GIT"
         }
       }
     },
@@ -723,8 +723,8 @@
       "webhookId": "6c0d27bf-b546-475e-a444-4da8c4d9ae7d",
       "credentials": {
         "gmailOAuth2": {
-          "id": "BduuK2xE34DeB5CA",
-          "name": "Gmail account 2"
+          "id": "AH8hZGm0rsEMN0k4",
+          "name": "GIT"
         }
       }
     },
@@ -1105,7 +1105,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "79f5e758-05db-4480-b1ae-22e7418870c1",
+  "versionId": "027a1300-065e-47b5-9088-764fbf9343e5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "80506d3448078bcf0bb2e0bcf69531cdc076409df54bd01c6e846b8a70b9afaa"
