@@ -1,0 +1,541 @@
+{
+  "name": "Stock_Trading",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -16,
+        96
+      ],
+      "id": "2eb49f16-1edb-461f-accd-25c3e5a3c6e0",
+      "name": "Telegram Trigger",
+      "webhookId": "ff27d127-02a5-4f71-9d43-057a0f86db8d",
+      "credentials": {
+        "telegramApi": {
+          "id": "sOPCnpIpnoM49nXG",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "1min"
+            },
+            {
+              "name": "outputsize",
+              "value": "100"
+            },
+            {
+              "name": "apikey",
+              "value": "93f64eecc6654843a97274209ab271ff"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        -112
+      ],
+      "id": "f90aeb33-9628-4e4b-b81a-953bfbf150e2",
+      "name": "1min Interval"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "15min"
+            },
+            {
+              "name": "outputsize",
+              "value": "100"
+            },
+            {
+              "name": "apikey",
+              "value": "93f64eecc6654843a97274209ab271ff"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        96
+      ],
+      "id": "cb9cc9c4-fca6-4605-9c3d-f1dff1fafbe4",
+      "name": "15min interval"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twelvedata.com/time_series",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "symbol",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "interval",
+              "value": "30min"
+            },
+            {
+              "name": "outputsize",
+              "value": "100"
+            },
+            {
+              "name": "apikey",
+              "value": "93f64eecc6654843a97274209ab271ff"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        304
+      ],
+      "id": "452c203d-64c3-41c2-b229-6ab65a662c15",
+      "name": "30min interval"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        80
+      ],
+      "id": "dea76fbe-253d-4450-b759-a7c98459cea3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a highly intelligent and accurate sentiment analyzer specializing in the financial markets.\nAnalyze the sentiment of the provided text.\n- Evaluate immediate market reaction, news impact, and technical volatility.\n- Classify the sentiment as :\"Positive\", \"Neutral\", or \"Negative\".\nDay Trader AI Agent 1\n- Provide a score between\n- 1(very negative) and 1 (very positive).\n- Give a short rationale explaining the sentiment.\nYour output must be a **JSON object** with:\n- \"category\"\n- \"score\"\n- \"rationale\"\nOnly return the JSON. Example:\n{\"shortTermSentiment\" :{\n\"category\" : \"Positive\", \n\"score\" :0.7, \n\"rationale\" : \"...\"\n}\n}\nNow analyze the following text and return only the JSON:\n{{JSON.stringify($json.articles)}}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -400
+      ],
+      "id": "a113bbb3-2081-45a9-a341-cf5ea92944bc",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uIxJ2FCooS9mxcV0",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        672,
+        96
+      ],
+      "id": "73216bfe-fae8-4e8f-b8e3-9ffdcb2c4af8",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst root = items[0].json;\n// extract datasetsconst \ndata1m = root.data[0]; // 1min\nconst data15m = root.data[1]; // 15min\nconst data30m = root.data[2]; // 30min\n// standardize format\nfunction normalize(values) { \n  return values \n    .map(v => ({ \n      time: new Date(v.datetime), \n      open: parseFloat(v.open), \n      high: parseFloat(v.high), \n      low: parseFloat(v.low), \n      close: parseFloat(v.close), \n    })) \n    .sort((a, b) => a.time - b.time);\n}\nreturn [ \n  { \n    json: { \n      ticker: data1m.meta.symbol, \n      candles1m: normalize(data1m.values), \n      candles15m: normalize(data15m.values), \n      candles30m: normalize(data30m.values), \n    } \n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        96
+      ],
+      "id": "e2da8b1f-f20b-4636-9030-84cd1eeac581",
+      "name": "Code"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1104,
+        -160
+      ],
+      "id": "2c53011f-99a2-4f25-9355-19b13b40835c",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        -160
+      ],
+      "id": "f97a2927-4e31-464a-80f7-b998960e5fcc",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=**Purpose**\n\nYou are a professional day trader.\nBased on the candle data and sentiment analysis provided below, give one clear trading recommendation:Buy, Sell, or Hold.\n\n**Your decision must consider**\n- Price action from 1m,15m, and 30min candles\n- Overall sentiment over the last 24h\n\n**Then return the following details**\n\n- Trade Action (Buy/Sell/Hold — based on analysis)\n- Entry Price\n- Stop\n- Loss\n- Target Price\n- Data for Review\n\nCandle Data: {{JSON.stringify($json.data[0])}}\n\nSentiment(Past 24h):{{JSON.stringify($json.data[1])}}\n\n**Each candle includes:\n\n- timeframe:“1m”,“15m”,or “30min”\n- candles:[openTime,open,high,low,close,volume,…]\n\nSteps to Decide:\n\n- Group candles by timeframe\n- Use 1m&15m candleswithRSI,MACD,and rendlines for timing \n- Confirm trend using 30min data - Use sentiment to finalize the recommendation \n- Your Output Format (No explanation text!):\n\nYour Output Format( No explanation text!):\n\n- Trade Action: BUY|SELL|HOLD\n- Entry Price: <number>\n- Stop-Loss: <number>\n- Target Price: <number>",
+        "options": {
+          "systemMessage": "=**Response Format**\n- Technical Recommendation: <BUY|SELL|HOLD>\n- Entry Price: \n<number or N/A >\n- Stop - Loss:\n< number or N/A >\n- Target/Exit Price:\n< number or N/A >\n- Hold or Exit Decision:\n< Hold | Exit>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1456,
+        -160
+      ],
+      "id": "aa3ce1a6-859b-48c1-9e4d-e2cf364d9c4a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        32
+      ],
+      "id": "51706524-d0f4-4d8a-a495-842f31910bd6",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uIxJ2FCooS9mxcV0",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        -160
+      ],
+      "id": "3460e351-1da4-4d4b-b56f-856a520a8c60",
+      "name": "Send a text message",
+      "webhookId": "ad081002-0b56-40b1-a10c-1c07dbea41c7",
+      "credentials": {
+        "telegramApi": {
+          "id": "sOPCnpIpnoM49nXG",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "###News Extractor",
+        "height": 320,
+        "width": 576
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        224,
+        -512
+      ],
+      "typeVersion": 1,
+      "id": "f7f196ab-7d34-4929-b095-85f5d94e8d27",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/everything",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "from",
+              "value": "{{$today.minus({days:2}).toFormat('yyyy-MM-dd')}}"
+            },
+            {
+              "name": "apikey",
+              "value": "1aa77c2a61d548f5a4fbb72e14348949"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        272,
+        -400
+      ],
+      "id": "eaf65e1a-703f-4c25-b7dc-e6eb9edd63df",
+      "name": "News Extractor"
+    },
+    {
+      "parameters": {
+        "content": "###Price Data Collection ",
+        "height": 608,
+        "width": 1056,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -64,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "0f540b59-c66c-4328-8053-126dcd272faf",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "###Output",
+        "height": 496,
+        "width": 928,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1024,
+        -304
+      ],
+      "typeVersion": 1,
+      "id": "8227502d-44cf-4ce8-aae0-1e580f8b58f4",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "1min Interval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "15min interval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "30min interval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "News Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "30min interval": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "15min interval": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "1min Interval": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "News Extractor": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9fc5d85e-1ea4-4285-8cb6-5e9f9d94e54e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "80506d3448078bcf0bb2e0bcf69531cdc076409df54bd01c6e846b8a70b9afaa"
+  },
+  "id": "YYDRBvtBsLPP91Yp",
+  "tags": []
+}
